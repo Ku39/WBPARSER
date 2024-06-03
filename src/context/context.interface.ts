@@ -1,9 +1,8 @@
-import { Context } from 'telegraf';
+import { Scenes } from 'telegraf';
 
-export interface SessionData {
-    courseLike: boolean;
+export interface SessionData extends Scenes.SceneSessionData {
+    courseLike?: boolean;
+    scene?: string;
 }
 
-export interface IBotContext extends Context {
-    session: SessionData;
-}
+export interface IBotContext extends Scenes.SceneContext<SessionData> {}
