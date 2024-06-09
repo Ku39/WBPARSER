@@ -1,5 +1,6 @@
 import { IConfigService } from '../config/config.interface';
 import { ConfigService } from '../config/config.service';
+import { IUser } from './Schemas/schemas.interface';
 
 export abstract class Database {
     status: boolean = false;
@@ -15,7 +16,9 @@ export abstract class Database {
 
     abstract connection(): void;
 
-    abstract findUser(id: string): Promise<Record<string, boolean | string>>;
+    abstract findUser(
+        id: string | number
+    ): Promise<Record<string, boolean | null | IUser /*  */>>;
 
     abstract createUser(
         id: string,

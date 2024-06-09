@@ -1,4 +1,4 @@
-import { Markup, Telegraf } from 'telegraf';
+import {Telegraf } from 'telegraf';
 import { Command } from './command.class';
 import { IBotContext } from '../context/context.interface';
 
@@ -8,7 +8,7 @@ export class StartCommand extends Command {
     }
     handle(): void {
         this.bot.start((ctx) => {
-            console.log(ctx.session);
+            // console.log(ctx.session);
             ctx.scene.enter('StartScene');
         });
     }

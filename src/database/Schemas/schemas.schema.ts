@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Model } from 'mongoose';
+import { IUser } from './schemas.interface';
 
 const userSchema = new Schema({
     TgId: { type: Number, required: true, unique: true },
@@ -10,6 +11,6 @@ const userSchema = new Schema({
     Settings: { type: Object },
 });
 
-const User = model('User', userSchema);
+const User: Model<IUser> = model<IUser>('User', userSchema);
 
 export = User;
