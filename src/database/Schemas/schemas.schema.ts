@@ -1,16 +1,15 @@
-import { Schema, model, Model } from 'mongoose';
-import { IUser } from './schemas.interface';
+import { Schema, model, Model } from "mongoose";
+import { IUser } from "./schemas.interface";
 
 const userSchema = new Schema({
-    TgId: { type: Number, required: true, unique: true },
-    Sub: { type: Object, required: true },
-    ChatId: { type: Number },
-    UserInfo: { type: Object, required: true },
-    PayData: { type: Number || Boolean, required: true },
-    LastScene: { type: String, required: true },
-    Settings: { type: Object },
+  TgId: { type: Number, required: true, unique: true }, // Telegram ID
+  Sub: { type: Object, required: true }, // Подписка
+  UserInfo: { type: Object, required: true }, // Информация о пользователе
+  PayData: { type: Schema.Types.Mixed }, // Данные о платеже (Number или Boolean)
+  Scene: { type: String, required: true }, // Последняя сцена
+  Settings: { type: Object }, // Настройки
 });
 
-const User: Model<IUser> = model<IUser>('User', userSchema);
+const User: Model<IUser> = model<IUser>("User", userSchema);
 
 export = User;
