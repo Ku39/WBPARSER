@@ -17,6 +17,7 @@ export class StartScene extends Scene {
       if (ctx.callbackQuery?.from.id) {
         chekUs = await Db.findUser(ctx.callbackQuery?.from.id);
       }
+
       // ctx.reply("hello StartScene", Markup.keyboard(["test"]));
     });
     // this.scene.hears("test", async (ctx) => {
