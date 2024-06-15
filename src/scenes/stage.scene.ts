@@ -1,9 +1,9 @@
-import { Scenes } from 'telegraf';
-import { IBotContext } from '../context/context.interface';
-import { StartScene } from './start.scene';
+import { Scenes } from "telegraf";
+import { IBotContext } from "../context/context.interface";
+import { StartScene } from "./start.scene";
 
-const arrScene = [new StartScene().handle()];
+// const arrScene = [new StartScene().handle()];
 
-const stage = new Scenes.Stage<IBotContext>(arrScene);
+const stage = new Scenes.Stage<IBotContext>();
 
 export = stage;
