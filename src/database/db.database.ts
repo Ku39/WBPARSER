@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Database } from "./database.class";
+import { Database, returnData } from "./database.class";
 import User from "./Schemas/schemas.schema";
 import { ISub, IUser } from "./Schemas/schemas.interface";
 import { User as TgUser } from "telegraf/typings/core/types/typegram";
@@ -19,23 +19,23 @@ class Db extends Database {
     }
   }
 
-  async findUser(id: string | number): Promise<Record<string, boolean | null | IUser>> {
+  async findUser(id: string | number) {
     if (!this.status) await this.connection();
     const result = await User.findOne({ TgId: id });
     if (!result) {
       return {
-        status: false,
+        success: false,
         body: null,
       };
     } else {
       return {
-        status: true,
+        success: true,
         body: result,
       };
     }
   }
 
-  async createUser(id: number, Scene: string, userInfo: TgUser, Sub: ISub): Promise<Record<string, boolean | null | IUser>> {
+  async createUser(id: number, Scene: string, userInfo: TgUser, Sub: ISub) {
     if (!this.status) await this.connection();
     const newUser = new User({
       TgId: id,
@@ -47,7 +47,7 @@ class Db extends Database {
     try {
       await newUser.save();
       return {
-        status: true,
+        success: true,
         body: null,
       };
     } catch (err: any) {
@@ -55,23 +55,23 @@ class Db extends Database {
 
       if ((err.code = 11000)) console.log(`Пользователь: ${id} уже есть в базе`);
       return {
-        status: false,
+        success: false,
         body: null,
       };
     }
   }
 
-  async updateSub(id: number, update: ISub): Promise<Record<string, boolean | null | IUser>> {
+  async updateSub(id: number, update: ISub) {
     if (!this.status) await this.connection();
     const result = await User.updateOne({ TgId: id }, update);
     if (result.modifiedCount > 0) {
       return {
-        status: true,
+        success: true,
         body: null,
       };
     } else {
       return {
-        status: true,
+        success: true,
         body: null,
       };
     }

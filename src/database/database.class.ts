@@ -3,6 +3,11 @@ import { IConfigService } from "../config/config.interface";
 import { ConfigService } from "../config/config.service";
 import { ISub, IUser } from "./Schemas/schemas.interface";
 
+export type returnData = {
+  success: boolean | null;
+  body: boolean | null | IUser;
+};
+
 export abstract class Database {
   status: boolean = false;
   readonly token: string;
@@ -17,9 +22,9 @@ export abstract class Database {
 
   abstract connection(): void;
 
-  abstract findUser(id: string | number): Promise<Record<string, boolean | null | IUser /*  */>>;
+  abstract findUser(id: string | number): Promise<returnData>;
 
-  abstract createUser(id: number, Scene: string, userInfo: User, Sub: ISub): Promise<Record<string, boolean | null | IUser>>;
+  abstract createUser(id: number, Scene: string, userInfo: User, Sub: ISub): Promise<returnData>;
 
-  abstract updateSub(id: number, update: ISub): Promise<Record<string, boolean | null | IUser>>;
+  abstract updateSub(id: number, update: ISub): Promise<returnData>;
 }
