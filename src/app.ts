@@ -1,4 +1,4 @@
-import { Telegraf, Scenes } from "telegraf";
+import { Telegraf, Scenes, session } from "telegraf";
 import { IConfigService } from "./config/config.interface";
 import { ConfigService } from "./config/config.service";
 import { IBotContext } from "./context/context.interface";
@@ -14,6 +14,7 @@ class Bot {
 
   constructor(private readonly configService: IConfigService) {
     this.bot = new Telegraf<IBotContext>(this.configService.get("TOKEN"));
+    this.bot.use(session());
     this.bot.use(stage.middleware());
   }
 

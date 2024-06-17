@@ -4,6 +4,6 @@ import { StartScene } from "./start.scene";
 
 const arrScene = [new StartScene().handle()];
 
-const stage = new Scenes.Stage<IBotContext>();
+const stage = new Scenes.Stage<IBotContext>(arrScene);
 
 export = stage;

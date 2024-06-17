@@ -1,8 +1,8 @@
 import { Markup } from "telegraf";
 import Db from "../database/db.database";
 import { Scene } from "./scene.class";
-import stage from "./stage.scene";
 import StorageService from "../msgStorage/msgStorage.service";
+import remoteConfigService from "../remoteConfig/remoteConfig.service";
 
 export class StartScene extends Scene {
   constructor() {
@@ -11,17 +11,15 @@ export class StartScene extends Scene {
 
   handle() {
     this.scene.enter(async (ctx) => {
-      let findUser;
-      if (ctx.message?.from.id) {
-        findUser = await Db.findUser(ctx.message?.from.id);
-      }
-      if (ctx.callbackQuery?.from.id) {
-        findUser = await Db.findUser(ctx.callbackQuery?.from.id);
+      const userId = ctx.message?.from.id || ctx.callbackQuery?.from.id;
+      if (userId) {
+        const findUser = await Db.findUser(userId);
+        if (findUser?.success) {
+        } else {
+          const remoteConfig = await remoteConfigService.getConfig();
+        }
       }
 
-      if (findUser?.success) {
-      } else {
-      }
       // ctx.reply("hello StartScene", Markup.keyboard(["test"]));
     });
     // this.scene.hears("test", async (ctx) => {
